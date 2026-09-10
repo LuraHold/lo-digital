@@ -7,8 +7,14 @@
   <meta name="description" content="Group returns and refunds policy for apparel stores operated by LO Digital LLC.">
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="css/styles.css">
+  <script>
+    document.documentElement.classList.add("js");
+    try { if (!sessionStorage.getItem("lo-intro")) document.documentElement.classList.add("await-intro"); } catch (e) {}
+  </script>
+
 </head>
 <body>
+  <div class="intro" aria-hidden="true"><p>LO Digital</p><span>Limited Liability Company</span></div>
   <a class="skip" href="#main">Skip to content</a>
   <header class="mast">
     <div class="mast-legal">
@@ -98,6 +104,7 @@
           </ul>
         </div>
       </div>
+      <p class="foot-mark" aria-hidden="true">LO Digital</p>
       <div class="foot-legal">
         <span>© 2026 LO Digital LLC. All rights reserved.</span>
         <span>Organized under the Wyoming Limited Liability Company Act.</span>

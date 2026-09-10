@@ -4,6 +4,25 @@
   var reduce = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
   var fine = window.matchMedia("(pointer: fine)").matches;
 
+  function endIntro() {
+    document.documentElement.classList.remove("await-intro");
+    document.documentElement.classList.remove("intro-out");
+    try {
+      sessionStorage.setItem("lo-intro", "1");
+    } catch (e) {}
+  }
+
+  if (document.documentElement.classList.contains("await-intro")) {
+    if (reduce) {
+      endIntro();
+    } else {
+      window.setTimeout(function () {
+        document.documentElement.classList.add("intro-out");
+      }, 1600);
+      window.setTimeout(endIntro, 2500);
+    }
+  }
+
   if (!reduce) {
     var nodes = document.querySelectorAll(".reveal");
     if ("IntersectionObserver" in window) {
@@ -110,6 +129,45 @@
         }, 320);
       });
     });
+  }
+
+  var counters = document.querySelectorAll("[data-count]");
+  if (counters.length) {
+    function runCount(el) {
+      var end = parseInt(el.getAttribute("data-count"), 10);
+      var suffix = el.getAttribute("data-suffix") || "";
+      var start = 0;
+      var dur = end > 1000 ? 1400 : 900;
+      var t0 = null;
+      function frame(now) {
+        if (!t0) t0 = now;
+        var p = Math.min(1, (now - t0) / dur);
+        var eased = 1 - Math.pow(1 - p, 3);
+        var val = Math.round(start + (end - start) * eased);
+        el.textContent = val + suffix;
+        if (p < 1) requestAnimationFrame(frame);
+      }
+      if (reduce) {
+        el.textContent = end + suffix;
+      } else {
+        requestAnimationFrame(frame);
+      }
+    }
+    if ("IntersectionObserver" in window) {
+      var cio = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            runCount(entry.target);
+            cio.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.5 });
+      counters.forEach(function (el) {
+        cio.observe(el);
+      });
+    } else {
+      counters.forEach(runCount);
+    }
   }
 
   var form = document.getElementById("contact-form");

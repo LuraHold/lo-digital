@@ -8,7 +8,10 @@
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml">
   <link rel="canonical" href="https://www.lodigitalsolutions-official.com/">
   <link rel="stylesheet" href="css/styles.css">
-  <script>document.documentElement.classList.add("js");</script>
+  <script>
+    document.documentElement.classList.add("js");
+    try { if (!sessionStorage.getItem("lo-intro")) document.documentElement.classList.add("await-intro"); } catch (e) {}
+  </script>
   <meta property="og:title" content="LO Digital LLC">
   <meta property="og:description" content="Wyoming limited liability company operating apparel retail stores worldwide.">
   <meta property="og:type" content="website">
@@ -38,6 +41,7 @@
   </script>
 </head>
 <body>
+  <div class="intro" aria-hidden="true"><p>LO Digital</p><span>Limited Liability Company</span></div>
   <a class="skip" href="#main">Skip to content</a>
   <header class="mast">
     <div class="mast-legal">
@@ -143,10 +147,10 @@
         <h2>More than 25 stores, one company.</h2>
         <p class="intro">The group sells clothing online in multiple markets. Three named house brands sit at the center of the portfolio. The remaining stores serve local audiences under additional labels.</p>
         <div class="presence reveal">
-          <div><strong>25+</strong><span>Online apparel stores worldwide</span></div>
-          <div><strong>3</strong><span>Named house brands on this site</span></div>
-          <div><strong>100%</strong><span>Member-owned Wyoming LLC</span></div>
-          <div><strong>454110</strong><span>NAICS: electronic shopping</span></div>
+          <div><strong data-count="25" data-suffix="+">0</strong><span>Online apparel stores worldwide</span></div>
+          <div><strong data-count="3">0</strong><span>Named house brands on this site</span></div>
+          <div><strong data-count="100" data-suffix="%">0%</strong><span>Member-owned Wyoming LLC</span></div>
+          <div><strong data-count="454110">0</strong><span>NAICS: electronic shopping</span></div>
         </div>
       </div>
     </section>
@@ -291,6 +295,7 @@
           </ul>
         </div>
       </div>
+      <p class="foot-mark" aria-hidden="true">LO Digital</p>
       <div class="foot-legal">
         <span>© 2026 LO Digital LLC. All rights reserved.</span>
         <span>Organized under the Wyoming Limited Liability Company Act.</span>
